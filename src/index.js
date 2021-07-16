@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "@fontsource/roboto"
 import { extendTheme, ChakraProvider } from "@chakra-ui/react"
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './Store'
 
 const theme = extendTheme({
   fonts: {
@@ -16,9 +18,11 @@ const theme = extendTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
+    <ReduxProvider store={store}>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </ReduxProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
