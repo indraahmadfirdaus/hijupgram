@@ -25,7 +25,7 @@ function reducer(state = initialState, action) {
         case actions.FETCH_PHOTOS_LOADMORE:
             return {
                 ...state,
-                data: [...state.data, payload],
+                data: [...state.data, ...payload],
                 loading: false,
             }
         case actions.FETCH_PHOTO_BEGIN:

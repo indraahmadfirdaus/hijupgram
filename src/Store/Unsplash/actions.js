@@ -28,12 +28,20 @@ const actions = {
         }
     },
 
+    getPhotosLoadMore: (payload) => {
+        return {
+            type: actions.FETCH_PHOTOS_LOADMORE,
+            payload
+        }
+    },
+    
     getPhotoSuccess: (payload) => {
         return {
             type: actions.FETCH_PHOTO_SUCCESS,
             payload
         }
     },
+
 
     getPhotoBegin: () => {
         return {

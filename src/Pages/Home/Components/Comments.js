@@ -21,9 +21,9 @@ function Comments() {
         }
     }
 
-    function renderComment(comment) {
+    function renderComment(comment, idx) {
         return (
-            <HStack my="2">
+            <HStack my="2" key={idx}>
                         <Avatar size="sm" src="https://www.hijup.com/assets/0a09a576094f19c987f8f2eea0a49422.png"/>
                         <Flex w="250px" alignItems="center">
                             <Text ml="4" fontWeight="bold" letterSpacing="widest" fontSize="sm">hijup
@@ -60,9 +60,9 @@ function Comments() {
                         <Divider />
                 {/* comments */}
                 {
-                    comments.map(comment => {
+                    comments.map((comment, idx) => {
                         if(location.state.id === comment.id) {
-                            return renderComment(comment);
+                            return renderComment(comment, idx);
                         }
                     })
                 }

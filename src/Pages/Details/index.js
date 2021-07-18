@@ -11,7 +11,7 @@ function Index() {
             <Flex bg="white" h="70vh" w="70%">
                 <HStack p={8}>
                     <Box w="40%">
-                        <Image w="100%" alt="detail post img" src={location.state.url}/>
+                        <Image w="100%" h="300px" alt="detail post img" src={location.state.url}/>
                     </Box>
                     <Flex justifyContent="center" w="60%" flexDirection="column" alignItems="center">
                         <SimpleGrid spacing={10} columns={2}>

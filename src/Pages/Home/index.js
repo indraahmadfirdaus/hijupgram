@@ -1,21 +1,27 @@
-import React , { useEffect } from 'react'
+import React , { useEffect, useState } from 'react'
 import { Flex, Text,  Grid, GridItem } from '@chakra-ui/react'
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import CardPost from './Components/CardPost'
 import Suggestion from './Components/Suggestion'
 import Comments from './Components/Comments'
 import { useLocation } from 'react-router-dom'
-import { fetchPhotos } from '../../Store/Unsplash/actionCreator'
+import { fetchPhotos, fetchPhotosLoadMore } from '../../Store/Unsplash/actionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 
 function Index() {
     const location = useLocation()
     const dispatch = useDispatch()
     const photos = useSelector(state => state.unsplash)
+    let [ page, setPage ] = useState(1)
 
     useEffect(() => {
         dispatch(fetchPhotos())
     },[])
+
+    function handleLoadMore() {
+        setPage(page += 1)
+        dispatch(fetchPhotosLoadMore(page))
+    }
 
     if(photos.loading) {
         return <p>Loading...</p>
@@ -40,6 +46,7 @@ function Index() {
                                             color="blue.500"
                                             textAlign="center"
                                             cursor="pointer"
+                                            onClick={handleLoadMore}
                                             >Load More...</Text>
                                         </>
                                     )
