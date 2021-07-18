@@ -1,9 +1,10 @@
 import axios from 'axios'
 import actions from './actions'
+import env from 'react-dotenv'
 const URL = "https://api.unsplash.com"
 let options = {
     headers: {
-        Authorization: "Client-ID " + "agnvr_SY2ZPA88UKTwAagwKYhkUvr2zdxOvm05vRv2Y"
+        Authorization: "Client-ID " + env.UNSPLASH_CLIENT_ID
     }
 }
 
@@ -35,10 +36,19 @@ export function searchPhotos(query) {
     return async (dispatch) => {
         try {
             dispatch(actions.searchPhotosBegin)
-            console.log('query from action creator', query);
             const { data } = await axios.get(`${URL}/search/photos?page=1&query=${query}`, options)
-            console.log('data from search', data.results)
             dispatch(actions.searchPhotosSuccess(data.results))
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+}
+
+export function searchPhotosLoadMore(query, page) {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.get(`${URL}/search/photos?page=${page}&query=${query}`, options)
+            dispatch(actions.searchPhotosLoadMore(data.results))
         } catch (error) {
             console.log(error.response)
         }

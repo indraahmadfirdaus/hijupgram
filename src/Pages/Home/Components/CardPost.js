@@ -26,7 +26,6 @@ function CardPost({ photo }) {
     function handleOnClickDetails() {
         let flag = likedPosts.some(liked => liked.id === photo.id)
 
-
         history.push({
             pathname: '/details/' + photo.id,
             state: {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Flex, Text, Input, Spacer, HStack, Icon, Avatar } from '@chakra-ui/react'
+import { Flex, Text, Input, Spacer, HStack, Icon, Avatar, useToast } from '@chakra-ui/react'
 import { FiHeart, FiCompass, FiSearch, FiHome } from 'react-icons/fi'
 import { useHistory, useLocation } from 'react-router'
 import { useDispatch } from 'react-redux'
@@ -11,15 +11,24 @@ function Navbar() {
     const location = useLocation()
     const dispatch = useDispatch()
     const [query, setQuery] = useState('')
+    const toast = useToast()
 
     function handleSearch(event) {
         if(event.key === 'Enter') {
-            console.log(event.target.value)
-            dispatch(searchPhotos(event.target.value))
-            history.push({ 
-                pathname: '/explore',
-                state: { query }
-            })
+
+            if(query === '') {
+                toast({
+                    title: 'please fill the blank form',
+                    duration: 3000,
+                    variant:'left-accent'
+                })
+            } else {
+                dispatch(searchPhotos(event.target.value))
+                history.push({ 
+                    pathname: '/explore',
+                    state: { query }
+                })
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Flex, Text, Avatar, Input, Button, VStack, HStack, InputGroup, InputRightElement, Divider } from '@chakra-ui/react'
+import { useToast, Box, Flex, Text, Avatar, Input, Button, VStack, HStack, InputGroup, InputRightElement, Divider } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addComment, getComment } from '../../../Store/Comments/actionCreator'
@@ -8,16 +8,25 @@ function Comments() {
     const location = useLocation()
     const dispatch = useDispatch()
     const comments = useSelector(state => state.comment.comments)
+    const toast = useToast()
 
     function handleInputComment(event) {
         if(event.key === 'Enter') {
             
-            const commentData = {}
-            commentData["id"] = location.state.id
-            commentData["comment"] = event.target.value
-            commentData["avatar"] = "https://www.hijup.com/assets/0a09a576094f19c987f8f2eea0a49422.png"
-            dispatch(addComment(commentData))
-            event.target.value = ""
+            if(event.target.value === '') {
+                toast({
+                    title: 'please fill the blank form',
+                    duration: 3000,
+                    variant:'left-accent'
+                })
+            } else {
+                const commentData = {}
+                commentData["id"] = location.state.id
+                commentData["comment"] = event.target.value
+                commentData["avatar"] = "https://www.hijup.com/assets/0a09a576094f19c987f8f2eea0a49422.png"
+                dispatch(addComment(commentData))
+                event.target.value = ""
+            }
         }
     }
 

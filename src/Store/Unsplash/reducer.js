@@ -49,7 +49,13 @@ function reducer(state = initialState, action) {
                 ...state,
                 searchData: payload,
                 loading: false
-            }        
+            }
+        case actions.SEARCH_PHOTOS_LOADMORE:
+            return {
+                ...state,
+                searchData: [...state.searchData, ...payload],
+                loading: false,
+            }            
         default:
             return state
     }

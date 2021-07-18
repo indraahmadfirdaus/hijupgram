@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Flex, Text, Avatar, Image, SimpleGrid, Box, Button } from '@chakra-ui/react'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import { searchPhotosLoadMore } from '../../Store/Unsplash/actionCreator'
 
 function Index() {
     const location = useLocation()
     const searchData = useSelector(state => state.unsplash.searchData)
     const dispatch = useDispatch()
+    let [ page, setPage ] = useState(1)
+
+    function handleLoadMore() {
+        setPage(page += 1)
+        dispatch(searchPhotosLoadMore(location.state?.query, page))
+    }
 
     return (
         <Flex minH="90vh" bg="#FAFAFA" justifyContent="center" alignItems="center" flexDirection="column">
@@ -32,7 +39,6 @@ function Index() {
                                             </Flex>
                                             </Flex>
                                         </Box>
-                                        {idx === searchData.length - 1 && <Text color="blue.500" textAlign="center">Load More...</Text>}
                                         </>
                                     ))
                                 }
@@ -42,6 +48,15 @@ function Index() {
                         <Text>You haven't search anything yet.</Text>
                     }
                 </Flex>
+                {
+                location.state?.query &&
+                    <Button
+                    variant="ghost"
+                    colorScheme="blue"
+                    mt="4"
+                    onClick={handleLoadMore}
+                    >Load More</Button>
+                }
         </Flex>
     )
 }

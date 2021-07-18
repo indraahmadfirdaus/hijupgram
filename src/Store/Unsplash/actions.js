@@ -7,6 +7,7 @@ const actions = {
     FETCH_PHOTO_SUCCESS: "FETCH_PHOTO_SUCCESS",
     SEARCH_PHOTOS_BEGIN: "SEARCH_PHOTOS_BEGIN",
     SEARCH_PHOTOS_SUCCESS: "SEARCH_PHOTOS_SUCCESS",
+    SEARCH_PHOTOS_LOADMORE: "SEARCH_PHOTOS_LOADMORE",
 
     getPhotosBegin: () => {
         return {
@@ -60,7 +61,14 @@ const actions = {
             type: actions.SEARCH_PHOTOS_SUCCESS,
             payload
         }
-    }
+    },
+
+    searchPhotosLoadMore: (payload) => {
+        return {
+            type: actions.SEARCH_PHOTOS_LOADMORE,
+            payload
+        }
+    },
 }
 
 export default actions
