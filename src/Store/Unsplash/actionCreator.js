@@ -32,13 +32,24 @@ export function fetchPhotosLoadMore(page) {
     }
 }
 
-export function searchPhotos(query) {
+export function searchPhotos(query, toast) {
     return async (dispatch) => {
         try {
             dispatch(actions.searchPhotosBegin)
             const { data } = await axios.get(`${URL}/search/photos?page=1&query=${query}`, options)
+            
+            if(data.total === 0) {
+                throw { status: 404 }
+            } 
+
             dispatch(actions.searchPhotosSuccess(data.results))
         } catch (error) {
+            toast({
+                title: 'not found for query ' + query,
+                duration: 3000,
+                variant:'left-accent',
+                status: 'error'
+            })
             console.log(error.response)
         }
     }

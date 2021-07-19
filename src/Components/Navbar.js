@@ -23,7 +23,7 @@ function Navbar() {
                     variant:'left-accent'
                 })
             } else {
-                dispatch(searchPhotos(event.target.value))
+                dispatch(searchPhotos(event.target.value, toast))
                 history.push({ 
                     pathname: '/explore',
                     state: { query }
